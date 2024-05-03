@@ -24,7 +24,8 @@ provider "template" {
 }
 
 data "aws_eks_cluster" "cluster" {
-  name = module.eks.cluster_id
+  name                      = module.eks.cluster_id
+  enabled_cluster_log_types = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
 }
 
 data "aws_eks_cluster_auth" "cluster" {
@@ -81,7 +82,8 @@ module "vpc" {
     "kubernetes.io/role/internal-elb"             = "1"
   }
 
-  tags = var.tags
+  tags            = var.tags
+  enable_flow_log = true
 }
 
 module "eks" {
@@ -113,5 +115,6 @@ module "eks" {
   map_roles                            = var.map_roles
   map_accounts                         = var.map_accounts
 
-  workers_additional_policies = [aws_iam_policy.worker_policy.id]
+  workers_additional_policies    = [aws_iam_policy.worker_policy.id]
+  cluster_endpoint_public_access = false
 }
