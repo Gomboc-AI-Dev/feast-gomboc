@@ -20,3 +20,7 @@ resource "aws_s3_bucket" "feast_bucket" {
 
   tags = var.tags
 }
+resource "aws_s3_bucket_public_access_block" "my_aws_s3_bucket_public_access_block_feast_bucket" {
+  bucket             = aws_s3_bucket.feast_bucket.id
+  ignore_public_acls = true
+}
