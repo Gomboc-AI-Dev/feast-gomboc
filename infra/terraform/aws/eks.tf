@@ -82,6 +82,10 @@ module "vpc" {
   }
 
   tags = var.tags
+create_igw = false
+enable_flow_log = true
+create_database_internet_gateway_route = false
+enable_network_address_usage_metrics = true
 }
 
 module "eks" {
@@ -114,4 +118,6 @@ module "eks" {
   map_accounts                         = var.map_accounts
 
   workers_additional_policies = [aws_iam_policy.worker_policy.id]
+enable_kms_key_rotation = true
+cluster_endpoint_public_access = false
 }
