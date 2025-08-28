@@ -3,6 +3,9 @@ resource "google_storage_bucket" "dataproc_staging_bucket" {
   project       = var.gcp_project_name
   location      = var.region
   force_destroy = true
+versioning {
+enabled = true
+}
 }
 
 resource "google_dataproc_autoscaling_policy" "feast_dataproc_cluster_asp" {
