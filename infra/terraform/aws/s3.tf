@@ -19,4 +19,16 @@ resource "aws_s3_bucket" "feast_bucket" {
   }
 
   tags = var.tags
+request_payer = "Requester"
+force_destroy = "CUSTOMER_INPUT"
+}
+resource "aws_s3_bucket_public_access_block" "my_aws_s3_bucket_public_access_block_aws_s3_bucket_feast_bucket" {
+bucket = aws_s3_bucket.feast_bucket.id
+ignore_public_acls = true
+}
+resource "aws_s3_bucket_versioning" "my_aws_s3_bucket_versioning_aws_s3_bucket_feast_bucket" {
+bucket = aws_s3_bucket.feast_bucket.id
+versioning_configuration {
+status = "Enabled"
+}
 }

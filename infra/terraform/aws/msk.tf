@@ -36,6 +36,7 @@ resource "aws_msk_cluster" "msk" {
     encryption_in_transit {
       client_broker = "TLS_PLAINTEXT"
     }
+encryption_at_rest_kms_key_arn = "null"
   }
 
   logging_info {
